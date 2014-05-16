@@ -4,16 +4,15 @@ AKAI Python workshops code templates 2014/05/17
 Live wiki https://hackpad.com/AKAI-b89UStvBNaA
 
 #### OSX
-get python-3.4.0-macosx10.6.dmg
-
-ctrl-click, open with..., installer (default)
+* get python-3.4.0-macosx10.6.dmg
+* ctrl-click, open with..., installer (default)
 
 #### Win
-get python-3.4.0.amd64.msi
+* get python-3.4.0.amd64.msi
 
 #### Linux
-install python-3.4
-sudo python3.4 -m ensurepip
+* install python-3.4
+* sudo python3.4 -m ensurepip
 
 #### Libraries
 ```sh
