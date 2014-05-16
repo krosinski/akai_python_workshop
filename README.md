@@ -1,6 +1,7 @@
 AKAI Python workshops code templates 2014/05/17
 
 ## Before we start
+Live wiki https://hackpad.com/AKAI-b89UStvBNaA
 
 #### OSX
 get python-3.4.0-macosx10.6.dmg
@@ -31,4 +32,6 @@ vim:
 * https://github.com/scrooloose/syntastic
 Emacs:
 * https://github.com/flycheck/flycheck
-
+Sublime:
+* http://wbond.net/sublime_packages/package_control
+* https://github.com/dreadatour/Flake8Lint
