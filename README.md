@@ -21,6 +21,7 @@ virtualenv-3.4 akai
 source akai/bin/activate
 pip install ipython
 pip install flake8
+pip install pytest
 ```
 
 #### Tools
