@@ -62,16 +62,19 @@ assert Apple().seeds == 42
 # For more hack, override `type.__new__` and pass other keywords
 class FruityMeta(type):
     def __new__(cls, name, bases, ns, **kw):
-        xx = kw.pop("xx")
-        rv = type.__new__(cls, name, bases, ns)
-        rv.seeds = 13
-        rv.xx = xx
-        return rv
+        # tweak created class name
+        name = kw.get("rename") or name
+        return type.__new__(cls, name, bases, ns)
+
+    def __init__(cls, name, bases, ns, **kw):
+        type.__init__(cls, name, bases, ns)
+        # tweak created class content
+        cls.seeds = kw.get("seeds")
 
 
-class Apple(Datum, metaclass=FruityMeta, xx=123):
+class Apple(Datum, metaclass=FruityMeta, rename="GoldenDelicious", seeds=13):
     pass
 
 
 assert Apple().seeds == 13
-assert not Apple().xx
+assert Apple().__class__.__name__ == "GoldenDelicious"
