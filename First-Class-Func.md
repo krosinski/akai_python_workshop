@@ -62,7 +62,7 @@ sorted(arr, key=lambda x: x < 5)
 
 Task: using sorted and lambda as key, put the array into a random order
 
-#hint
+-hint: 
 
 
 Higher-order functions usage
@@ -98,5 +98,5 @@ print(list(expelled))
 
 Task: implement a Caesar cipher coder/decoder for text using map/ use filter remove all non-alphabet characters.
 
-#Hints on conversin to ascii and back 
+-Hint: on conversin to ascii and back ord / chr
 

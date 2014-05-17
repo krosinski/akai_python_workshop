@@ -83,19 +83,7 @@ class A(B,C): pass
 
 
 References:
+
 http://en.wikipedia.org/wiki/C3_linearization
-https://www.python.org/download/releases/2.3/mro/
 
-
-
-
-
-
-
-
-
-
-
-
-links:
 https://www.python.org/download/releases/2.3/mro/
