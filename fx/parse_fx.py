@@ -23,7 +23,6 @@ def load_raw_data(data_file):
     ]
     """
     output_data = []
-    #TODO: implement
 
     skipped_title = False
     with open(data_file, 'rt') as f:
@@ -62,9 +61,8 @@ class BaseRate:
     def __init__(self, **kwargs):
         """Sets only fields that are specified 
         """
-        #TODO: implement setting the right instance fields
-        for key in self.FIELDS:
-            setattr(self, key, kwargs[key])
+        #TODO: implement setting the right fields (from FIELDS) with
+        #appropriate values from kwargs
 
     def should_buy(self):
         raise NotImplementedError()
@@ -76,8 +74,8 @@ class GeneralInfoRate(BaseRate):
     FIELDS = ['rate_tm', 'close_price']
 
 
-class SpecificInfoRate(TrendMixin, BaseRate):
-    #TODO: MRO, will trend predictions work?
+#TODO: MRO, fill in base classes to make trend predictions work?
+class SpecificInfoRate:
     FIELDS = ['rate_tm', 'close_price', 'open_price', 'high_price',
               'low_price', 'volume']
     
@@ -99,16 +97,16 @@ if __name__ == "__main__":
         general_rates.append(GeneralInfoRate(**processed_row))
         specific_rates.append(SpecificInfoRate(**processed_row))
 
-        assert not hasattr(general_rates[0], "volume")
-        assert hasattr(specific_rates[0], "volume")
+    assert not hasattr(general_rates[0], "volume")
+    assert hasattr(specific_rates[0], "volume")
 
-        try:
-            general_rates[0].should_buy()
-            assert False, "NotImplemented expected"
-        except NotImplementedError:
-            pass
+    try:
+        general_rates[0].should_buy()
+        assert False, "NotImplemented expected"
+    except NotImplementedError:
+        pass
 
-        assert specific_rates[0].should_buy() ^\
-            specific_rates[0].should_sell()
+    assert specific_rates[0].should_buy() ^\
+        specific_rates[0].should_sell()
 
 
