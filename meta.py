@@ -1,4 +1,4 @@
-class Datum(object):
+class Datum:
     """ imaginary base class for a CSV row """
     pass
 
