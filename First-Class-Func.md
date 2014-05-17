@@ -41,6 +41,27 @@ def rand_series(n, ....):
 
 ```
 
+Solution:
+
+```
+import random
+
+def rand_series(n, rand_fn=None):
+    numbers = []
+    if not rand_fn:
+        rand_fn = lambda: random.randint(0, 10)
+    for i in range(n):
+        numbers.append(rand_fn())
+    return numbers
+
+fn = lambda: 1
+
+print(rand_series(5))
+print(rand_series(5, rand_fn=fn))
+
+```
+
+
 Anonymous functions, aka lambdas
 
 ```
@@ -62,8 +83,14 @@ sorted(arr, key=lambda x: x < 5)
 
 Task: using sorted and lambda as key, put the array into a random order
 
--hint: 
+Solution:
 
+```
+import random
+arr = [1, 2, 5, 3, 10, 20]
+print(sorted(arr, key=lambda x: random.random()))
+
+```
 
 Higher-order functions usage
 
@@ -100,3 +127,29 @@ Task: implement a Caesar cipher coder/decoder for text using map/ use filter rem
 
 -Hint: on conversin to ascii and back ord / chr
 
+Solution:
+
+```
+import string
+data = "This is a secrect message!!!"
+
+filter_fn = lambda x: x in string.ascii_letters
+#or equivelant
+#def filter_fn(x):
+#    return x in string.ascii_letters
+
+filtered_data = "".join(filter(filter_fn, data))
+print(filtered_data)
+
+encode_chr = lambda x: chr(ord(x)+3)
+decode_chr = lambda x: chr(ord(x)-3)
+
+encoded = "".join(map(encode_chr, filtered_data))
+print(encoded)
+decoded = "".join(map(decode_chr, encoded))
+print(decoded)
+
+
+
+
+```
