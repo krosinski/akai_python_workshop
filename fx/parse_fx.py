@@ -1,14 +1,12 @@
-import datetime 
-
-tm_parse = lambda x: datetime.datetime.strptime(x, '%d.%m.%Y %H:%M:%S.%f')
+import datetime
 
 FIELD_MAP = {
-    0: (tm_parse, "rate_tm"),
-    1: (float, "open_price"),
-    2: (float, "close_price"),
-    3: (float, "high_price"),
-    4: (float, "low_price"),
-    5: (float, "volume")
+    0: (str, "rate_tm"),
+    1: (str, "open_price"),
+    2: (str, "close_price"),
+    3: (str, "high_price"),
+    4: (str, "low_price"),
+    5: (str, "volume")
 }
 
 def load_raw_data(data_file):
@@ -23,8 +21,6 @@ def load_raw_data(data_file):
     ]
     """
     output_data = []
-    #TODO: implement
-
     skipped_title = False
     with open(data_file, 'rt') as f:
         for line in f:
@@ -37,50 +33,15 @@ def load_raw_data(data_file):
 def parse_row(row):
     """Maps a list of fields into a dictionary with preprocessed data
     example:
-    ["2014-02-01", "test", "1234"]
-    -> {"a": date(2014, 2, 1)
-        "b": "test",
-        "c": 123
+    ["2014-02-01", "123.12",]
+    -> {"rate_tm": date(2014, 2, 1),
+        "open_price": 123.12,
         }
     """
     #TODO: replace FIELD_MAP dummy functions with appropriate type parsing
-    return {FIELD_MAP[i][1]: FIELD_MAP[i][0](field)
-            for i, field in enumerate(row)}
-
-class TrendMixin:
-
-    def should_buy(self):
-        return self.close_price > self.open_price
-
-    def should_sell(self):
-        return self.close_price < self.open_price
-
-class BaseRate:
-
-    FIELDS = []
-
-    def __init__(self, **kwargs):
-        """Sets only fields that are specified 
-        """
-        #TODO: implement setting the right instance fields
-        for key in self.FIELDS:
-            setattr(self, key, kwargs[key])
-
-    def should_buy(self):
-        raise NotImplementedError()
-
-    def should_sell(self):
-        raise NotImplementedError()
-
-class GeneralInfoRate(BaseRate):
-    FIELDS = ['rate_tm', 'close_price']
-
-
-class SpecificInfoRate(TrendMixin, BaseRate):
-    #TODO: MRO, will trend predictions work?
-    FIELDS = ['rate_tm', 'close_price', 'open_price', 'high_price',
-              'low_price', 'volume']
-    
+    #return a dictionary of {field_name: parsed_value}
+    #Hint: use enumerate(row) and dictionary comprehansion
+    return {}
 
 if __name__ == "__main__":
     general_rates = []
@@ -95,20 +56,3 @@ if __name__ == "__main__":
         assert isinstance(processed_row['rate_tm'], datetime.datetime)
         assert isinstance(processed_row['open_price'], float)
         assert isinstance(processed_row['close_price'], float)
-
-        general_rates.append(GeneralInfoRate(**processed_row))
-        specific_rates.append(SpecificInfoRate(**processed_row))
-
-        assert not hasattr(general_rates[0], "volume")
-        assert hasattr(specific_rates[0], "volume")
-
-        try:
-            general_rates[0].should_buy()
-            assert False, "NotImplemented expected"
-        except NotImplementedError:
-            pass
-
-        assert specific_rates[0].should_buy() ^\
-            specific_rates[0].should_sell()
-
-
